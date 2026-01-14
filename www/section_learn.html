@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>学习课堂</title>
-    <link href="www/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background: #e0f7fa; font-family: 'Segoe UI', sans-serif; height: 100vh; height: 100dvh; overflow: hidden; display: flex; flex-direction: column; }
         .stage { flex: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, #dcedc8, #fff); overflow: hidden; width: 100%; padding: 10px; position: relative; }
@@ -28,8 +28,15 @@
         <button class="btn btn-primary rounded-pill px-4" id="next-btn" onclick="move(1)">下一页</button>
     </div>
 
-    <script src="www/data_zoo.js"></script>
+    <script src="data_zoo.js"></script>
     <script>
+		// 替代PHP的GET参数获取逻辑
+		function getUrlParam(name) {
+		    const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+		    const r = window.location.search.substr(1).match(reg);
+		    return r ? unescape(r[2]) : null;
+		}
+		
         const id = getQueryParam('id') || 'xb2c1s1';
         const content = courses[id];
         if(!content) { alert('课程内容未找到'); window.location.href='index.html'; }

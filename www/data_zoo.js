@@ -95,30 +95,30 @@ graph TB
     C1S1 ~~~ C2S1 ~~~ C3S1 ~~~ C4S1 ~~~ C5S1 ~~~ C6S1 ~~~ Special
 
     %% --- 交互跳转 ---
-    click C1S1 "section_learn.php?id=c1s1" "进入课堂"
-    click C1S2 "section_learn.php?id=c1s2" "进入课堂"
-    click C1S3 "section_learn.php?id=c1s3" "进入课堂"
-    click C1S4 "section_learn.php?id=c1s4" "进入课堂"
+    click C1S1 "section_learn.html?id=c1s1" "进入课堂"
+    click C1S2 "section_learn.html?id=c1s2" "进入课堂"
+    click C1S3 "section_learn.html?id=c1s3" "进入课堂"
+    click C1S4 "section_learn.html?id=c1s4" "进入课堂"
     
-    click C2S1 "section_learn.php?id=c2s1" "进入课堂"
-    click C2S2 "section_learn.php?id=c2s2" "进入课堂"
+    click C2S1 "section_learn.html?id=c2s1" "进入课堂"
+    click C2S2 "section_learn.html?id=c2s2" "进入课堂"
 
-    click C3S1 "section_learn.php?id=c3s1" "进入课堂"
-    click C3S2 "section_learn.php?id=c3s2" "进入课堂"
-    click C3S3 "section_learn.php?id=c3s3" "进入课堂"
+    click C3S1 "section_learn.html?id=c3s1" "进入课堂"
+    click C3S2 "section_learn.html?id=c3s2" "进入课堂"
+    click C3S3 "section_learn.html?id=c3s3" "进入课堂"
     
-    click C4S1 "section_learn.php?id=c4s1" "进入课堂"
-    click C4S2 "section_learn.php?id=c4s2" "进入课堂"
+    click C4S1 "section_learn.html?id=c4s1" "进入课堂"
+    click C4S2 "section_learn.html?id=c4s2" "进入课堂"
     
-    click C5S1 "section_learn.php?id=c5s1" "进入课堂"
-    click C5S2 "section_learn.php?id=c5s2" "进入课堂"
+    click C5S1 "section_learn.html?id=c5s1" "进入课堂"
+    click C5S2 "section_learn.html?id=c5s2" "进入课堂"
     
-    click C6S1 "section_learn.php?id=c6s1" "进入课堂"
-    click C6S2 "section_learn.php?id=c6s2" "进入课堂"
-    click C6S3 "section_learn.php?id=c6s3" "进入课堂"
-    click C6S4 "section_learn.php?id=c6s4" "进入课堂"
+    click C6S1 "section_learn.html?id=c6s1" "进入课堂"
+    click C6S2 "section_learn.html?id=c6s2" "进入课堂"
+    click C6S3 "section_learn.html?id=c6s3" "进入课堂"
+    click C6S4 "section_learn.html?id=c6s4" "进入课堂"
     
-    click Special "project_research.php?bid=b1" "开启综合研究"
+    click Special "project_research.html?bid=b1" "开启综合研究"
 
     %% --- 样式定义 (保留必修一蓝色风格) ---
     classDef rootClass fill:#2c3e50,stroke:#fff,color:white,font-size:18px,stroke-width:3px;
@@ -196,29 +196,29 @@ graph TB
     B2C1S1 ~~~ B2C2S1 ~~~ B2C3S1 ~~~ B2C4S1 ~~~ B2C5S1
 
     %% 交互跳转
-    click B2C1S1 "section_learn.php?id=b2c1s1" "进入课堂"
-    click B2C1S2 "section_learn.php?id=b2c1s2" "进入课堂"
-    click B2C1S3 "section_learn.php?id=b2c1s3" "进入课堂"
-    click B2C1QR "project_research.php?bid=b2&open=0" "进入研究"
+    click B2C1S1 "section_learn.html?id=b2c1s1" "进入课堂"
+    click B2C1S2 "section_learn.html?id=b2c1s2" "进入课堂"
+    click B2C1S3 "section_learn.html?id=b2c1s3" "进入课堂"
+    click B2C1QR "project_research.html?bid=b2&open=0" "进入研究"
     
-    click B2C2S1 "section_learn.php?id=b2c2s1" "进入课堂"
-    click B2C2S2 "section_learn.php?id=b2c2s2" "进入课堂"
-    click B2C2S3 "section_learn.php?id=b2c2s3" "进入课堂"
-    click B2C2QR "project_research.php?bid=b2&open=1" "进入研究"
+    click B2C2S1 "section_learn.html?id=b2c2s1" "进入课堂"
+    click B2C2S2 "section_learn.html?id=b2c2s2" "进入课堂"
+    click B2C2S3 "section_learn.html?id=b2c2s3" "进入课堂"
+    click B2C2QR "project_research.html?bid=b2&open=1" "进入研究"
     
-    click B2C3S1 "section_learn.php?id=b2c3s1" "进入课堂"
-    click B2C3S2 "section_learn.php?id=b2c3s2" "进入课堂"
-    click B2C3S3 "section_learn.php?id=b2c3s3" "进入课堂"
-    click B2C3QR "project_research.php?bid=b2&open=2" "进入研究"
+    click B2C3S1 "section_learn.html?id=b2c3s1" "进入课堂"
+    click B2C3S2 "section_learn.html?id=b2c3s2" "进入课堂"
+    click B2C3S3 "section_learn.html?id=b2c3s3" "进入课堂"
+    click B2C3QR "project_research.html?bid=b2&open=2" "进入研究"
     
-    click B2C4S1 "section_learn.php?id=b2c4s1" "进入课堂"
-    click B2C4S2 "section_learn.php?id=b2c4s2" "进入课堂"
-    click B2C4QR "project_research.php?bid=b2&open=3" "进入研究"
+    click B2C4S1 "section_learn.html?id=b2c4s1" "进入课堂"
+    click B2C4S2 "section_learn.html?id=b2c4s2" "进入课堂"
+    click B2C4QR "project_research.html?bid=b2&open=3" "进入研究"
     
-    click B2C5S1 "section_learn.php?id=b2c5s1" "进入课堂"
-    click B2C5S2 "section_learn.php?id=b2c5s2" "进入课堂"
-    click B2C5S3 "section_learn.php?id=b2c5s3" "进入课堂"
-    click B2C5QR "project_research.php?bid=b2&open=4" "进入研究"
+    click B2C5S1 "section_learn.html?id=b2c5s1" "进入课堂"
+    click B2C5S2 "section_learn.html?id=b2c5s2" "进入课堂"
+    click B2C5S3 "section_learn.html?id=b2c5s3" "进入课堂"
+    click B2C5QR "project_research.html?bid=b2&open=4" "进入研究"
 
     classDef rootClass fill:#d35400,stroke:#fff,color:white,font-size:18px,stroke-width:3px;
     classDef activeNode fill:#e67e22,stroke:#d35400,color:white,cursor:pointer,rx:5,ry:5;
@@ -292,28 +292,28 @@ graph TB
     XB1C1S1 ~~~ XB1C2S1 ~~~ XB1C3S1 ~~~ XB1C4S1 ~~~ XB1C5S1
 
     %% 点击事件配置 (打开对应章节的研究项目)
-    click XB1C1S1 "section_learn.php?id=xb1c1s1" "进入课堂"
-    click XB1C1S2 "section_learn.php?id=xb1c1s2" "进入课堂"
-    click XB1C1QR "project_research.php?bid=xb1&open=0" "进入研究"
+    click XB1C1S1 "section_learn.html?id=xb1c1s1" "进入课堂"
+    click XB1C1S2 "section_learn.html?id=xb1c1s2" "进入课堂"
+    click XB1C1QR "project_research.html?bid=xb1&open=0" "进入研究"
 
-    click XB1C2S1 "section_learn.php?id=xb1c2s1" "进入课堂"
-    click XB1C2S2 "section_learn.php?id=xb1c2s2" "进入课堂"
-    click XB1C2S3 "section_learn.php?id=xb1c2s3" "进入课堂"
-    click XB1C2QR "project_research.php?bid=xb1&open=3" "进入研究"
+    click XB1C2S1 "section_learn.html?id=xb1c2s1" "进入课堂"
+    click XB1C2S2 "section_learn.html?id=xb1c2s2" "进入课堂"
+    click XB1C2S3 "section_learn.html?id=xb1c2s3" "进入课堂"
+    click XB1C2QR "project_research.html?bid=xb1&open=3" "进入研究"
 
-    click XB1C3S1 "section_learn.php?id=xb1c3s1" "进入课堂"
-    click XB1C3S2 "section_learn.php?id=xb1c3s2" "进入课堂"
-    click XB1C3S3 "section_learn.php?id=xb1c3s3" "进入课堂"
-    click XB1C3QR "project_research.php?bid=xb1&open=6" "进入研究"
+    click XB1C3S1 "section_learn.html?id=xb1c3s1" "进入课堂"
+    click XB1C3S2 "section_learn.html?id=xb1c3s2" "进入课堂"
+    click XB1C3S3 "section_learn.html?id=xb1c3s3" "进入课堂"
+    click XB1C3QR "project_research.html?bid=xb1&open=6" "进入研究"
 
-    click XB1C4S1 "section_learn.php?id=xb1c4s1" "进入课堂"
-    click XB1C4S2 "section_learn.php?id=xb1c4s2" "进入课堂"
-    click XB1C4S3 "section_learn.php?id=xb1c4s3" "进入课堂"
-    click XB1C4QR "project_research.php?bid=xb1&open=9" "进入研究"
+    click XB1C4S1 "section_learn.html?id=xb1c4s1" "进入课堂"
+    click XB1C4S2 "section_learn.html?id=xb1c4s2" "进入课堂"
+    click XB1C4S3 "section_learn.html?id=xb1c4s3" "进入课堂"
+    click XB1C4QR "project_research.html?bid=xb1&open=9" "进入研究"
 
-    click XB1C5S1 "section_learn.php?id=xb1c5s1" "进入课堂"
-    click XB1C5S2 "section_learn.php?id=xb1c5s2" "进入课堂"
-    click XB1C5QR "project_research.php?bid=xb1&open=12" "进入研究"
+    click XB1C5S1 "section_learn.html?id=xb1c5s1" "进入课堂"
+    click XB1C5S2 "section_learn.html?id=xb1c5s2" "进入课堂"
+    click XB1C5QR "project_research.html?bid=xb1&open=12" "进入研究"
 
     %% 样式定义
     classDef rootClass fill:#27ae60,stroke:#fff,color:white,font-size:18px,stroke-width:3px;
@@ -377,24 +377,24 @@ graph TB
     XB2C1S1 ~~~ XB2C2S1 ~~~ XB2C3S1 ~~~ XB2C4S1
 
     %% 点击事件
-    click XB2C1S1 "section_learn.php?id=xb2c1s1" "进入课堂"
-    click XB2C1S2 "section_learn.php?id=xb2c1s2" "进入课堂"
-    click XB2C1QR "project_research.php?bid=xb2&open=0" "进入研究"
+    click XB2C1S1 "section_learn.html?id=xb2c1s1" "进入课堂"
+    click XB2C1S2 "section_learn.html?id=xb2c1s2" "进入课堂"
+    click XB2C1QR "project_research.html?bid=xb2&open=0" "进入研究"
 
-    click XB2C2S1 "section_learn.php?id=xb2c2s1" "进入课堂"
-    click XB2C2S2 "section_learn.php?id=xb2c2s2" "进入课堂"
-    click XB2C2S3 "section_learn.php?id=xb2c2s3" "进入课堂"
-    click XB2C2QR "project_research.php?bid=xb2&open=3" "进入研究"
+    click XB2C2S1 "section_learn.html?id=xb2c2s1" "进入课堂"
+    click XB2C2S2 "section_learn.html?id=xb2c2s2" "进入课堂"
+    click XB2C2S3 "section_learn.html?id=xb2c2s3" "进入课堂"
+    click XB2C2QR "project_research.html?bid=xb2&open=3" "进入研究"
 
-    click XB2C3S1 "section_learn.php?id=xb2c3s1" "进入课堂"
-    click XB2C3S2 "section_learn.php?id=xb2c3s2" "进入课堂"
-    click XB2C3QR "project_research.php?bid=xb2&open=6" "进入研究"
+    click XB2C3S1 "section_learn.html?id=xb2c3s1" "进入课堂"
+    click XB2C3S2 "section_learn.html?id=xb2c3s2" "进入课堂"
+    click XB2C3QR "project_research.html?bid=xb2&open=6" "进入研究"
 
-    click XB2C4S1 "section_learn.php?id=xb2c4s1" "进入课堂"
-    click XB2C4S2 "section_learn.php?id=xb2c4s2" "进入课堂"
-    click XB2C4S3 "section_learn.php?id=xb2c4s3" "进入课堂"
-    click XB2C4S4 "section_learn.php?id=xb2c4s4" "进入课堂"
-    click XB2C4QR "project_research.php?bid=xb2&open=9" "进入研究"
+    click XB2C4S1 "section_learn.html?id=xb2c4s1" "进入课堂"
+    click XB2C4S2 "section_learn.html?id=xb2c4s2" "进入课堂"
+    click XB2C4S3 "section_learn.html?id=xb2c4s3" "进入课堂"
+    click XB2C4S4 "section_learn.html?id=xb2c4s4" "进入课堂"
+    click XB2C4QR "project_research.html?bid=xb2&open=9" "进入研究"
 
     %% 样式定义 (彼得兔紫)
     classDef rootClass fill:#9b59b6,stroke:#fff,color:white,font-size:18px,stroke-width:3px;
@@ -461,27 +461,27 @@ graph TB
     XB3C1S1 ~~~ XB3C2S1 ~~~ XB3C3S1 ~~~ XB3C4S1
 
     %% 点击事件
-    click XB3C1S1 "section_learn.php?id=xb3c1s1" "进入课堂"
-    click XB3C1S2 "section_learn.php?id=xb3c1s2" "进入课堂"
-    click XB3C1S3 "section_learn.php?id=xb3c1s3" "进入课堂"
-    click XB3C1QR "project_research.php?bid=xb3&open=0" "进入研究"
+    click XB3C1S1 "section_learn.html?id=xb3c1s1" "进入课堂"
+    click XB3C1S2 "section_learn.html?id=xb3c1s2" "进入课堂"
+    click XB3C1S3 "section_learn.html?id=xb3c1s3" "进入课堂"
+    click XB3C1QR "project_research.html?bid=xb3&open=0" "进入研究"
 
-    click XB3C2S1 "section_learn.php?id=xb3c2s1" "进入课堂"
-    click XB3C2S2 "section_learn.php?id=xb3c2s2" "进入课堂"
-    click XB3C2S3 "section_learn.php?id=xb3c2s3" "进入课堂"
-    click XB3C2S4 "section_learn.php?id=xb3c2s4" "进入课堂"
-    click XB3C2QR "project_research.php?bid=xb3&open=3" "进入研究"
+    click XB3C2S1 "section_learn.html?id=xb3c2s1" "进入课堂"
+    click XB3C2S2 "section_learn.html?id=xb3c2s2" "进入课堂"
+    click XB3C2S3 "section_learn.html?id=xb3c2s3" "进入课堂"
+    click XB3C2S4 "section_learn.html?id=xb3c2s4" "进入课堂"
+    click XB3C2QR "project_research.html?bid=xb3&open=3" "进入研究"
 
-    click XB3C3S1 "section_learn.php?id=xb3c3s1" "进入课堂"
-    click XB3C3S2 "section_learn.php?id=xb3c3s2" "进入课堂"
-    click XB3C3S3 "section_learn.php?id=xb3c3s3" "进入课堂"
-    click XB3C3S4 "section_learn.php?id=xb3c3s4" "进入课堂"
-    click XB3C3QR "project_research.php?bid=xb3&open=6" "进入研究"
+    click XB3C3S1 "section_learn.html?id=xb3c3s1" "进入课堂"
+    click XB3C3S2 "section_learn.html?id=xb3c3s2" "进入课堂"
+    click XB3C3S3 "section_learn.html?id=xb3c3s3" "进入课堂"
+    click XB3C3S4 "section_learn.html?id=xb3c3s4" "进入课堂"
+    click XB3C3QR "project_research.html?bid=xb3&open=6" "进入研究"
 
-    click XB3C4S1 "section_learn.php?id=xb3c4s1" "进入课堂"
-    click XB3C4S2 "section_learn.php?id=xb3c4s2" "进入课堂"
-    click XB3C4S3 "section_learn.php?id=xb3c4s3" "进入课堂"
-    click XB3C4QR "project_research.php?bid=xb3&open=9" "进入研究"
+    click XB3C4S1 "section_learn.html?id=xb3c4s1" "进入课堂"
+    click XB3C4S2 "section_learn.html?id=xb3c4s2" "进入课堂"
+    click XB3C4S3 "section_learn.html?id=xb3c4s3" "进入课堂"
+    click XB3C4QR "project_research.html?bid=xb3&open=9" "进入研究"
 
     %% 样式定义 (功夫熊猫红/金)
     classDef rootClass fill:#c0392b,stroke:#fff,color:white,font-size:18px,stroke-width:3px;
@@ -3284,3 +3284,12 @@ Object.assign(courses, {
         }
     }
 });
+
+// 7. 导出思维导图集合 (必须添加，否则地图页报错)
+const mindmaps = {
+    b1: b1_mindmap,
+    b2: b2_mindmap,
+    xb1: xb1_mindmap,
+    xb2: xb2_mindmap,
+    xb3: xb3_mindmap
+};
