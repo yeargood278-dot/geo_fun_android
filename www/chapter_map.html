@@ -2,41 +2,21 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <!-- 优化多终端视口适配 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"> 
-    <title>作战地图 - <span id="currentTitle"></span></title>
-    <!-- 替换Bootstrap CDN为本地 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>思维导图</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- 引入Mermaid（后续替换为本地资源） -->
-    <!-- 替换Mermaid CDN为本地 -->
-    <script src="js/mermaid.min.js"></script>
-    <script src="app_adapt.js"></script>
-
+    <script src="js/mermaid.min.js"></script> 
     <style>
-        /* 原有样式保留 + 多终端适配样式 */
         body { background: #f8f9fa; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-        .navbar { z-index: 10; flex-shrink: 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .map-viewport { flex: 1; overflow: auto; display: flex; justify-content: center; padding: 20px; background-image: radial-gradient(#dee2e6 1px, transparent 1px); background-size: 20px 20px; -webkit-overflow-scrolling: touch; }
-        .nav-btn-group { display: flex; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+        .nav-btn-group { display: flex; overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
         .nav-btn-group a { margin-left: 5px; flex-shrink: 0; }
-        .nav-btn-group::-webkit-scrollbar { display: none; }
-        
-        /* 手机小屏适配（375px以下） */
-        @media (max-width: 375px) {
-            .navbar-brand { max-width: 80px !important; font-size: 0.8rem !important; }
-            .btn-sm { padding: 0.2rem 0.4rem; font-size: 0.75rem; }
-        }
-        /* 平板大屏适配（768px以上） */
-        @media (min-width: 768px) {
-            .map-viewport { padding: 40px; }
-            .btn-sm { padding: 0.3rem 0.6rem; font-size: 1rem; }
-        }
+        .map-viewport { flex: 1; overflow: auto; display: flex; justify-content: center; padding: 20px; -webkit-overflow-scrolling: touch; }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-white px-2 justify-content-between">
+    <nav class="navbar navbar-light bg-white px-2 justify-content-between shadow-sm">
         <a href="index.html" class="btn btn-outline-secondary btn-sm rounded-pill me-2">🏠</a>
-        <span class="navbar-brand fw-bold fs-6 text-truncate" style="max-width: 120px;" id="navTitle"></span>
+        <span class="navbar-brand fw-bold fs-6 text-truncate" id="page-title">地图</span>
         <div class="nav-btn-group">
             <a href="chapter_map.html?bid=b1" class="btn btn-sm btn-outline-primary rounded-pill">必1</a>
             <a href="chapter_map.html?bid=b2" class="btn btn-sm btn-outline-warning rounded-pill">必2</a>
@@ -46,34 +26,46 @@
         </div>
     </nav>
     <div class="map-viewport">
-        <div class="mermaid" id="mindmapContainer"></div>
+        <div id="mermaid-box"></div>
     </div>
- <!-- 先引入本地静态数据 -->
-    <script src="data_zoo.js"></script>
+
+    <script src="js/data.js"></script>
     <script>
-        // 替代PHP的GET参数获取逻辑
-        function getUrlParam(name) {
-            const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
-            const r = window.location.search.substr(1).match(reg);
-            return r ? unescape(r[2]) : null;
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof books === 'undefined' || typeof mindmaps === 'undefined') {
+                alert('数据加载失败，请检查 data.js');
+                return;
+            }
 
-        // 初始化数据（兼容默认值）
-        const bid = getUrlParam('bid') || 'b1';
-        const currentTitle = books[bid]?.title || '必修1 自然地理';
-        const currentMindmap = mindmaps[bid] || mindmaps['b1'];
+            const bid = getQueryParam('bid') || 'b1';
+            const currentBook = books[bid];
+            document.title = currentBook.title;
+            document.getElementById('page-title').innerText = currentBook.title;
+            
+            // 获取导图代码
+            const mapCode = mindmaps[bid] || mindmaps['b1'];
+            
+            // 手动渲染 Mermaid
+            const element = document.getElementById('mermaid-box');
+            // 生成一个唯一的ID
+            const graphId = 'graphDiv' + new Date().getTime();
+            
+            try {
+                // 使用 mermaid.render 进行手动渲染，这样更稳定
+                mermaid.initialize({ 
+                    startOnLoad: false, // 关闭自动加载
+                    theme: 'base', 
+                    securityLevel: 'loose', // 允许 HTML 标签和点击事件
+                    flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'basis' } 
+                });
 
-        // 渲染标题和思维导图
-        document.getElementById('currentTitle').textContent = currentTitle;
-        document.getElementById('navTitle').textContent = currentTitle;
-        document.getElementById('mindmapContainer').textContent = currentMindmap;
-
-        // 初始化Mermaid（适配多终端渲染）
-        mermaid.initialize({ 
-            startOnLoad: true, 
-            theme: 'base', 
-            securityLevel: 'loose',
-            flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'basis' } 
+                mermaid.render(graphId, mapCode).then(({ svg }) => {
+                    element.innerHTML = svg;
+                });
+            } catch (e) {
+                console.error(e);
+                element.innerHTML = '<div class="alert alert-danger">导图渲染失败: ' + e.message + '</div>';
+            }
         });
     </script>
 </body>

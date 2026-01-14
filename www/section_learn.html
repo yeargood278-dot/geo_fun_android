@@ -2,101 +2,428 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>学习课堂</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地理乐课堂 - 学习中心</title>
     <style>
-        body { background: #e0f7fa; font-family: 'Segoe UI', sans-serif; height: 100vh; height: 100dvh; overflow: hidden; display: flex; flex-direction: column; }
-        .stage { flex: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, #dcedc8, #fff); overflow: hidden; width: 100%; padding: 10px; position: relative; }
-        .slide-card { width: 100%; max-width: 960px; height: 100%; background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: none; flex-direction: column; overflow: hidden; border: 1px solid #eee; position: absolute; top:10px; bottom:10px; left:10px; right:10px; }
-        .slide-card.active { display: flex; }
-        .role-header { padding: 15px; color: white; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-        .role-header h2 { font-size: 1.2rem; margin: 0; font-weight: bold; }
-        .role-avatar { font-size: 2.5rem; }
-        .content-body { padding: 20px; flex: 1; overflow-y: auto; font-size: 1.2rem; color: #333; line-height: 1.6; }
-        .visual-box { margin: 15px auto; text-align: center; height: 35vh; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:10px; background:#f9f9f9; width: 100%; }
-        .icon-large { font-size: 6rem; animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        /* ====================
+           1. 基础样式
+           ==================== */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* 防止滚动 */
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            width: 100%;
+            height: 60px;
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        .back-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none; /* 假如是a标签 */
+            font-size: 14px;
+        }
+        .back-btn:hover { background: #c0392b; }
+
+        .course-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ====================
+           2. PPT 容器区域
+           ==================== */
+        .ppt-container {
+            flex: 1; /* 占据剩余高度 */
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .slide-card {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* 角色头部 */
+        .role-header {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            margin-right: 15px;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .role-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 内容区域 */
+        .slide-content {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 22px;
+            line-height: 1.6;
+            color: #444;
+            background-repeat: no-repeat;
+            background-position: right bottom;
+            background-size: 150px;
+        }
+
+        .slide-title {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+        }
+
+        /* 底部控制栏 */
+        .controls {
+            width: 100%;
+            max-width: 900px;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            background: transparent;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn:active { transform: scale(0.95); }
+        .btn-prev { background: #95a5a6; color: white; }
+        .btn-next { background: #3498db; color: white; }
+        .btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+        .progress {
+            font-size: 18px;
+            color: #7f8c8d;
+            font-weight: bold;
+        }
+
+        /* ====================
+           3. 动画类 (对应 data.js 中的 anim_type)
+           ==================== */
+        .fadeIn { animation: fadeIn 0.8s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .slideInLeft { animation: slideInLeft 0.6s ease-out; }
+        @keyframes slideInLeft { from { transform: translateX(-50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        .slideInRight { animation: slideInRight 0.6s ease-out; }
+        @keyframes slideInRight { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        .zoomIn { animation: zoomIn 0.5s ease-out; }
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .rotateIn { animation: rotateIn 0.6s ease-out; }
+        @keyframes rotateIn { from { transform: rotate(-15deg); opacity: 0; } to { transform: rotate(0); opacity: 1; } }
+
+        .shake { animation: shake 0.5s; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+
+        .pulse { animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        .slideInUp { animation: slideInUp 0.6s ease-out; }
+        @keyframes slideInUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .swing { animation: swing 1s ease-in-out; }
+        @keyframes swing { 20% { transform: rotate(15deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(5deg); } 80% { transform: rotate(-5deg); } 100% { transform: rotate(0deg); } }
+
+        .bounceIn { animation: bounceIn 0.8s; }
+        @keyframes bounceIn { 0%, 20%, 40%, 60%, 80%, 100% {transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);} 0% {opacity: 0; transform: scale3d(.3, .3, .3);} 20% {transform: scale3d(1.1, 1.1, 1.1);} 40% {transform: scale3d(.9, .9, .9);} 60% {opacity: 1; transform: scale3d(1.03, 1.03, 1.03);} 80% {transform: scale3d(.97, .97, .97);} 100% {opacity: 1; transform: scale3d(1, 1, 1);} }
+
+        /* ====================
+           4. 角色配色 (对应 data.js 中的 role)
+           ==================== */
+        .role-nick { background-color: #e67e22; color: white; } /* 狐狸橙 */
+        .role-judy { background-color: #9b59b6; color: white; } /* 兔子紫 */
+        .role-flash { background-color: #27ae60; color: white; } /* 树懒绿 */
+        .role-bogo { background-color: #2c3e50; color: white; } /* 牛局长蓝黑 */
+        .role-po { background-color: #f1c40f; color: #333; }    /* 熊猫黄 */
+        .role-tigress { background-color: #d35400; color: white; } /* 悍娇虎橙红 */
+        .role-shifu { background-color: #ecf0f1; color: #333; }  /* 师父白 */
+        
+        /* 默认背景色 */
+        .bg-default { background: #ecf0f1; }
     </style>
 </head>
 <body>
-    <div class="stage" id="stage-container">
-        </div>
-    <div class="bg-white p-2 d-flex justify-content-between align-items-center shadow-lg" style="z-index: 100;">
-        <button class="btn btn-secondary rounded-pill px-4" onclick="move(-1)">上一页</button>
-        <span class="mx-2 fw-bold text-muted small" id="pg-num">1 / 1</span>
-        <button class="btn btn-primary rounded-pill px-4" id="next-btn" onclick="move(1)">下一页</button>
+
+    <div class="header">
+        <div class="course-title" id="course-header-title">正在加载课程...</div>
+        <button class="back-btn" onclick="goBack()">返回地图</button>
     </div>
 
-    <script src="data_zoo.js"></script>
-    <script>
-		// 替代PHP的GET参数获取逻辑
-		function getUrlParam(name) {
-		    const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
-		    const r = window.location.search.substr(1).match(reg);
-		    return r ? unescape(r[2]) : null;
-		}
-		
-        const id = getQueryParam('id') || 'xb2c1s1';
-        const content = courses[id];
-        if(!content) { alert('课程内容未找到'); window.location.href='index.html'; }
-        
-        document.title = content.title;
-        const slides = content.ppt;
-        const container = document.getElementById('stage-container');
-        let cur = 0;
+    <div class="ppt-container">
+        <div id="slide-card" class="slide-card">
+            <div style="padding:50px; text-align:center; color:#666;">
+                正在读取数据，请稍候...
+            </div>
+        </div>
+    </div>
 
-        // 角色样式映射
-        const roleMap = {
-            'peter': {color:'#3498db', emoji:'🐰', name:'彼得兔'},
-            'po': {color:'#e74c3c', emoji:'🐼', name:'阿宝'},
-            'max': {color:'#2980b9', emoji:'🐶', name:'麦克'},
-            'teacher': {color:'#3498db', emoji:'👮', name:'讲师'},
-            // ... 添加所有角色映射，或者写一个通用 fallback
+    <div class="controls">
+        <button id="prev-btn" class="btn btn-prev" onclick="changeSlide(-1)">上一页</button>
+        <div id="progress-text" class="progress">0 / 0</div>
+        <button id="next-btn" class="btn btn-next" onclick="changeSlide(1)">下一页</button>
+    </div>
+
+    <script src="js/data.js"></script>
+
+    <script>
+        // ==========================
+        // 逻辑控制脚本
+        // ==========================
+
+        let currentCourseId = null;
+        let currentSlideIndex = 0;
+        let courseData = null;
+
+        // 1. 初始化：获取URL参数并加载数据
+        window.onload = function() {
+            // 获取 URL 中的 id 参数 (例如 section_learn.html?id=c1s1)
+            const urlParams = new URLSearchParams(window.location.search);
+            currentCourseId = urlParams.get('id');
+
+            console.log("Current Course ID:", currentCourseId);
+
+            if (!currentCourseId || !courses[currentCourseId]) {
+                alert("未找到该课程数据！请返回地图重新选择。");
+                document.getElementById('course-header-title').innerText = "课程未找到";
+                return;
+            }
+
+            // 获取 data.js 中的课程数据
+            courseData = courses[currentCourseId];
+            
+            // 设置页面标题
+            document.title = "地理乐 - " + courseData.title;
+            document.getElementById('course-header-title').innerText = courseData.title;
+
+            // 渲染第一页
+            renderSlide(0);
         };
 
-        // 渲染幻灯片
-        slides.forEach((s, k) => {
-            const role = roleMap[s.role] || roleMap['teacher'];
-            const activeClass = k === 0 ? 'active' : '';
-            // 图标映射简易处理，实际可扩充
-            const visualHtml = `<div class="icon-large">${s.visual.includes('icon_') ? '🖼️' : '⭐'}</div>`; 
+        // 2. 渲染幻灯片核心函数
+        function renderSlide(index) {
+            if (!courseData || !courseData.ppt) return;
+
+            // 范围检查
+            if (index < 0) index = 0;
+            if (index >= courseData.ppt.length) index = courseData.ppt.length - 1;
             
+            currentSlideIndex = index;
+            const slide = courseData.ppt[currentSlideIndex];
+
+            // 获取 DOM 元素
+            const card = document.getElementById('slide-card');
+            
+            // --- 构造 HTML 结构 ---
+            
+            // 2.1 角色头像与配色
+            const roleInfo = getRoleInfo(slide.role);
+            const roleClass = `role-${slide.role || 'default'}`;
+            
+            // 2.2 视觉图标 (Visual) - 使用 Emoji 替代图片以防丢失
+            const visualEmoji = getVisualEmoji(slide.visual);
+
+            // 2.3 动画效果
+            const animClass = slide.anim_type || 'fadeIn';
+
+            // 2.4 生成 HTML
             const html = `
-            <div class="slide-card animate__animated animate__${s.anim_type||'fadeIn'} ${activeClass}" id="slide-${k}">
-                <div class="role-header" style="background: ${role.color}">
-                    <div><h2 class="m-0 fw-bold">${s.title}</h2><small>${role.name}</small></div>
-                    <div class="role-avatar">${role.emoji}</div>
+                <div class="role-header ${roleClass}">
+                    <div class="avatar">${roleInfo.emoji}</div>
+                    <div class="role-name">${roleInfo.name}</div>
                 </div>
-                <div class="content-body">
-                    ${s.content}
-                    <div class="visual-box">${visualHtml}</div>
+                <div class="slide-content ${animClass}">
+                    <div class="slide-title">
+                        ${visualEmoji} ${slide.title}
+                    </div>
+                    <div class="text-body">
+                        ${slide.content}
+                    </div>
                 </div>
-            </div>`;
-            container.innerHTML += html;
-        });
+            `;
 
-        const total = slides.length;
-        document.getElementById('pg-num').innerText = `1 / ${total}`;
+            // 更新 DOM
+            card.innerHTML = html;
 
-        function show(idx) {
-            document.querySelectorAll('.slide-card').forEach(el => el.classList.remove('active'));
-            document.getElementById('slide-' + idx).classList.add('active');
-            cur = idx;
-            document.getElementById('pg-num').innerText = (cur + 1) + " / " + total;
+            // --- 更新控制栏状态 ---
+            document.getElementById('progress-text').innerText = `${currentSlideIndex + 1} / ${courseData.ppt.length}`;
             
-            const btn = document.getElementById('next-btn');
-            if(cur === total - 1) { 
-                btn.innerText = "进入考核 📝"; 
-                btn.className = 'btn btn-success rounded-pill px-4';
-                btn.onclick = () => window.location.href = `quiz.html?id=${id}`; 
-            } else { 
-                btn.innerText = "下一页"; 
-                btn.className = 'btn btn-primary rounded-pill px-4';
-                btn.onclick = () => move(1); 
+            // 按钮禁用状态
+            document.getElementById('prev-btn').disabled = (currentSlideIndex === 0);
+            
+            // 如果是最后一页，下一页按钮变成“进入考核”颜色变绿
+            const nextBtn = document.getElementById('next-btn');
+            if (currentSlideIndex === courseData.ppt.length - 1) {
+                nextBtn.innerText = "进入考核";
+                nextBtn.style.backgroundColor = "#2ecc71"; // 绿色
+            } else {
+                nextBtn.innerText = "下一页";
+                nextBtn.style.backgroundColor = "#3498db"; // 蓝色
             }
         }
-        function move(dir) { if(cur + dir >= 0 && cur + dir < total) show(cur + dir); }
+
+        // 3. 翻页控制 (已修复跳转逻辑)
+        function changeSlide(direction) {
+            const newIndex = currentSlideIndex + direction;
+            
+            // 核心修复点：如果是最后一页点击下一页 -> 跳转到测验页面
+            if (direction === 1 && currentSlideIndex === courseData.ppt.length - 1) {
+                // 跳转到 quiz.html，并带上当前课程ID
+                window.location.href = "quiz.html?id=" + currentCourseId;
+                return;
+            }
+
+            renderSlide(newIndex);
+        }
+
+        // 4. 返回上一页
+        function goBack() {
+            // 返回历史记录上一页，或者强制跳转回地图主页
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = 'index.html'; // 假设主页是 index.html
+            }
+        }
+
+        // ==========================
+        // 辅助工具函数
+        // ==========================
+
+        // 获取角色信息 (名字和 Emoji 头像)
+        function getRoleInfo(roleId) {
+            const roles = {
+                // 疯狂动物城
+                'nick': { name: '尼克狐', emoji: '🦊' },
+                'judy': { name: '朱迪兔', emoji: '🐰' },
+                'flash': { name: '闪电', emoji: '🦥' },
+                'bogo': { name: '牛局长', emoji: '🐃' },
+                // 爱宠大机密
+                'max': { name: '麦克', emoji: '🐶' },
+                'snowball': { name: '小白', emoji: '🐰' },
+                'gidget': { name: '啾啾', emoji: '🐩' },
+                'chloe': { name: '克洛伊', emoji: '🐱' },
+                'duke': { name: '杜老大', emoji: '🐕' },
+                // 彼得兔
+                'peter': { name: '彼得兔', emoji: '🥕' },
+                'benjamin': { name: '本杰明', emoji: '🐰' },
+                'lily': { name: '莉莉', emoji: '👒' },
+                'tod': { name: '托德', emoji: '🦊' },
+                'jemima': { name: '杰米玛', emoji: '🦆' },
+                // 功夫熊猫
+                'po': { name: '阿宝', emoji: '🐼' },
+                'tigress': { name: '悍娇虎', emoji: '🐯' },
+                'shifu': { name: '师父', emoji: '🥋' },
+                'ping': { name: '平先生', emoji: '🍜' },
+                'crane': { name: '仙鹤', emoji: '🦢' },
+                // 魔童降世
+                'nezha': { name: '哪吒', emoji: '🔥' },
+                'aobing': { name: '敖丙', emoji: '🐉' },
+                'taiyi': { name: '太乙真人', emoji: '🍶' },
+                'lijing': { name: '李靖', emoji: '🏰' },
+                'shengongbao': { name: '申公豹', emoji: '🐆' },
+                // 默认
+                'default': { name: '讲师', emoji: '🎓' }
+            };
+            return roles[roleId] || roles['default'];
+        }
+
+        // 将 visual 字段映射为 Emoji 图标
+        function getVisualEmoji(visualKey) {
+            if (!visualKey) return '';
+            
+            // 简单关键词匹配
+            if (visualKey.includes('star')) return '🌟';
+            if (visualKey.includes('map')) return '🗺️';
+            if (visualKey.includes('life')) return '🌱';
+            if (visualKey.includes('fire')) return '🔥';
+            if (visualKey.includes('alert')) return '⚠️';
+            if (visualKey.includes('search')) return '🔍';
+            if (visualKey.includes('time')) return '⏳';
+            if (visualKey.includes('earth')) return '🌍';
+            if (visualKey.includes('water')) return '💧';
+            if (visualKey.includes('money')) return '💰';
+            if (visualKey.includes('mountain')) return '🏔️';
+            if (visualKey.includes('rain')) return '🌧️';
+            if (visualKey.includes('sun')) return '☀️';
+            if (visualKey.includes('plane')) return '✈️';
+            if (visualKey.includes('ship')) return '🚢';
+            if (visualKey.includes('train')) return '🚂';
+            if (visualKey.includes('car')) return '🚗';
+            if (visualKey.includes('tree')) return '🌲';
+            if (visualKey.includes('factory')) return '🏭';
+            
+            return '📌'; // 默认图标
+        }
+
     </script>
 </body>
 </html>

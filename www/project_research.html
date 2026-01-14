@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>问题研究</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <style>
+        body { background: #f0f2f5; font-family: 'Segoe UI', sans-serif; padding-bottom: 80px; }
+        
+        /* 动态头部区域 */
+        .header-section { 
+            color: white; 
+            padding: 20px; 
+            border-radius: 0 0 25px 25px; 
+            margin-bottom: 30px; 
+            transition: background 0.3s;
+        }
+        
+        /* 横向滚动导航 */
+        .nav-scroller { 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            margin-bottom: 15px; 
+            -webkit-overflow-scrolling: touch; 
+            padding-bottom: 5px; /* 防止滚动条遮挡 */
+        }
+        .nav-scroller::-webkit-scrollbar { display: none; } /* 隐藏滚动条 */
+        
+        .nav-scroller a { 
+            color: rgba(255,255,255,0.8); 
+            text-decoration: none; 
+            margin-right: 10px; 
+            border: 1px solid rgba(255,255,255,0.3); 
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            display: inline-block; 
+            font-size: 0.9rem; 
+            transition: all 0.2s;
+        }
+        .nav-scroller a.active { 
+            background: white; 
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* 项目卡片 */
+        .project-card { border: none; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; }
+        .accordion-button { background-color: white; color: #2c3e50; font-weight: bold; font-size: 1rem; padding: 18px; }
+        .accordion-button:not(.collapsed) { background-color: #f8f9fa; box-shadow: none; }
+        .accordion-button:focus { box-shadow: none; }
+        
+        .content-box { background: #fff; padding: 20px; border-top: 3px solid transparent; }
+        .label-tag { display: inline-block; padding: 4px 12px; border-radius: 15px; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px; background: #e9ecef; color: #495057; }
+        
+        /* 底部按钮栏 */
+        .footer-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 15px; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 1000; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="header-section animate__animated animate__fadeInDown" id="header-bg">
+        <div class="nav-scroller" id="top-nav">
+            <a href="project_research.html?bid=b1" data-id="b1">必1</a>
+            <a href="project_research.html?bid=b2" data-id="b2">必2</a>
+            <a href="project_research.html?bid=xb1" data-id="xb1">选1</a>
+            <a href="project_research.html?bid=xb2" data-id="xb2">选2</a>
+            <a href="project_research.html?bid=xb3" data-id="xb3">选3</a>
+        </div>
+        
+        <h2 class="fw-bold mb-1" id="page-title">问题研究</h2>
+        <p class="opacity-75 small mb-0">深度探究 · 拓展思维</p>
+    </div>
+    
+    <div class="container" style="max-width: 900px;">
+        <div class="accordion" id="projectAccordion">
+            <div class="text-center py-5 text-muted" id="loading-tip">加载中...</div>
+        </div>
+        <div style="height: 20px;"></div>
+    </div>
+
+    <div class="footer-bar">
+        <a href="index.html" class="btn btn-secondary rounded-pill px-4 mx-2">🏠 首页</a>
+        <button id="map-btn" class="btn btn-primary rounded-pill px-4 mx-2 shadow text-white">🗺️ 地图</button>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/data.js"></script>
+    <script>
+        // 1. 获取 URL 参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const bid = urlParams.get('bid') || 'b1';
+        
+        // 2. 获取当前书籍信息 (来自 data.js 的 books 对象)
+        const currentBook = books[bid];
+        const themeColor = currentBook ? currentBook.color : '#3498db';
+        const titlePrefix = currentBook ? currentBook.title : '未知书籍';
+
+        // 3. 渲染 UI 样式
+        // 设置头部背景渐变
+        document.getElementById('header-bg').style.background = `linear-gradient(135deg, ${themeColor} 0%, #2c3e50 100%)`;
+        
+        // 设置标题
+        document.getElementById('page-title').innerHTML = `${currentBook.icon} ${titlePrefix} · 问题研究`;
+        
+        // 设置顶部导航高亮
+        const navLinks = document.querySelectorAll('#top-nav a');
+        navLinks.forEach(link => {
+            if (link.getAttribute('data-id') === bid) {
+                link.classList.add('active');
+                link.style.color = themeColor;
+                // 自动滚动导航栏到当前项
+                link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+        });
+
+        // 设置底部“地图”按钮样式和链接
+        const mapBtn = document.getElementById('map-btn');
+        mapBtn.style.backgroundColor = themeColor;
+        mapBtn.style.borderColor = themeColor;
+        mapBtn.onclick = function() {
+            window.location.href = `chapter_map.html?bid=${bid}`;
+        };
+
+        // 4. 渲染研究项目列表
+        const container = document.getElementById('projectAccordion');
+        const projects = research_projects[bid] || [];
+
+        if (projects.length === 0) {
+            container.innerHTML = `
+                <div class="alert alert-info text-center shadow-sm border-0" style="background: rgba(255,255,255,0.9); color: ${themeColor}">
+                    🚧 本册内容正在建设中...
+                </div>`;
+        } else {
+            let html = '';
+            projects.forEach((proj, index) => {
+                const delay = index * 0.1; // 动画延迟
+                html += `
+                <div class="accordion-item project-card animate__animated animate__fadeInUp" style="animation-delay: ${delay}s;">
+                    <h2 class="accordion-header" id="heading${index}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}" style="color: ${themeColor}">
+                            <span class="me-3 fs-3">${proj.icon}</span>
+                            <span class="text-dark">${proj.title}</span>
+                        </button>
+                    </h2>
+                    <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#projectAccordion">
+                        <div class="accordion-body content-box" style="border-top-color: ${themeColor}">
+                            <div class="mb-3">
+                                <span class="label-tag">💡 主要观点与思路</span>
+                                <div class="text-secondary small mt-2 lh-base">${proj.points}</div>
+                            </div>
+                            <div>
+                                <span class="label-tag">📈 研究趋势与价值</span>
+                                <div class="text-secondary small mt-2 lh-base">${proj.value}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        // 5. 处理自动展开逻辑 (来自 URL 的 open 参数)
+        const openIdx = urlParams.get('open');
+        if (openIdx !== null) {
+            // 使用 Bootstrap 的 API 展开
+            const targetId = `#collapse${openIdx}`;
+            const element = document.querySelector(targetId);
+            if (element) {
+                // 等待 DOM 渲染完毕
+                setTimeout(() => {
+                    const bsCollapse = new bootstrap.Collapse(element, { show: true });
+                    // 滚动到该元素
+                    element.previousElementSibling.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>
