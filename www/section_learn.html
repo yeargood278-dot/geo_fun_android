@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>学习课堂</title>
+    <link href="www/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #e0f7fa; font-family: 'Segoe UI', sans-serif; height: 100vh; height: 100dvh; overflow: hidden; display: flex; flex-direction: column; }
+        .stage { flex: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, #dcedc8, #fff); overflow: hidden; width: 100%; padding: 10px; position: relative; }
+        .slide-card { width: 100%; max-width: 960px; height: 100%; background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: none; flex-direction: column; overflow: hidden; border: 1px solid #eee; position: absolute; top:10px; bottom:10px; left:10px; right:10px; }
+        .slide-card.active { display: flex; }
+        .role-header { padding: 15px; color: white; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+        .role-header h2 { font-size: 1.2rem; margin: 0; font-weight: bold; }
+        .role-avatar { font-size: 2.5rem; }
+        .content-body { padding: 20px; flex: 1; overflow-y: auto; font-size: 1.2rem; color: #333; line-height: 1.6; }
+        .visual-box { margin: 15px auto; text-align: center; height: 35vh; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:10px; background:#f9f9f9; width: 100%; }
+        .icon-large { font-size: 6rem; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    </style>
+</head>
+<body>
+    <div class="stage" id="stage-container">
+        </div>
+    <div class="bg-white p-2 d-flex justify-content-between align-items-center shadow-lg" style="z-index: 100;">
+        <button class="btn btn-secondary rounded-pill px-4" onclick="move(-1)">上一页</button>
+        <span class="mx-2 fw-bold text-muted small" id="pg-num">1 / 1</span>
+        <button class="btn btn-primary rounded-pill px-4" id="next-btn" onclick="move(1)">下一页</button>
+    </div>
+
+    <script src="www/data_zoo.js"></script>
+    <script>
+        const id = getQueryParam('id') || 'xb2c1s1';
+        const content = courses[id];
+        if(!content) { alert('课程内容未找到'); window.location.href='index.html'; }
+        
+        document.title = content.title;
+        const slides = content.ppt;
+        const container = document.getElementById('stage-container');
+        let cur = 0;
+
+        // 角色样式映射
+        const roleMap = {
+            'peter': {color:'#3498db', emoji:'🐰', name:'彼得兔'},
+            'po': {color:'#e74c3c', emoji:'🐼', name:'阿宝'},
+            'max': {color:'#2980b9', emoji:'🐶', name:'麦克'},
+            'teacher': {color:'#3498db', emoji:'👮', name:'讲师'},
+            // ... 添加所有角色映射，或者写一个通用 fallback
+        };
+
+        // 渲染幻灯片
+        slides.forEach((s, k) => {
+            const role = roleMap[s.role] || roleMap['teacher'];
+            const activeClass = k === 0 ? 'active' : '';
+            // 图标映射简易处理，实际可扩充
+            const visualHtml = `<div class="icon-large">${s.visual.includes('icon_') ? '🖼️' : '⭐'}</div>`; 
+            
+            const html = `
+            <div class="slide-card animate__animated animate__${s.anim_type||'fadeIn'} ${activeClass}" id="slide-${k}">
+                <div class="role-header" style="background: ${role.color}">
+                    <div><h2 class="m-0 fw-bold">${s.title}</h2><small>${role.name}</small></div>
+                    <div class="role-avatar">${role.emoji}</div>
+                </div>
+                <div class="content-body">
+                    ${s.content}
+                    <div class="visual-box">${visualHtml}</div>
+                </div>
+            </div>`;
+            container.innerHTML += html;
+        });
+
+        const total = slides.length;
+        document.getElementById('pg-num').innerText = `1 / ${total}`;
+
+        function show(idx) {
+            document.querySelectorAll('.slide-card').forEach(el => el.classList.remove('active'));
+            document.getElementById('slide-' + idx).classList.add('active');
+            cur = idx;
+            document.getElementById('pg-num').innerText = (cur + 1) + " / " + total;
+            
+            const btn = document.getElementById('next-btn');
+            if(cur === total - 1) { 
+                btn.innerText = "进入考核 📝"; 
+                btn.className = 'btn btn-success rounded-pill px-4';
+                btn.onclick = () => window.location.href = `quiz.html?id=${id}`; 
+            } else { 
+                btn.innerText = "下一页"; 
+                btn.className = 'btn btn-primary rounded-pill px-4';
+                btn.onclick = () => move(1); 
+            }
+        }
+        function move(dir) { if(cur + dir >= 0 && cur + dir < total) show(cur + dir); }
+    </script>
+</body>
+</html>

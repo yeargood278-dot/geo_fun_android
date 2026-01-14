@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>地理乐-GeoFun</title>
+    <script src="www/app_adapt.js"></script>
+    <!-- 替换Bootstrap CDN为本地 -->
+    <link href="www/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 替换Mermaid CDN为本地 -->
+    <script src="www/js/mermaid.min.js"></script>
 
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8fb 100%);
+            padding: 20px;
+        }
+        .app-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .btn-enter {
+            padding: 10px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+        }
+        /* 多终端适配 */
+        @media (max-width: 375px) {
+            .app-title { font-size: 1.5rem; }
+            .btn-enter { font-size: 1rem; padding: 8px 25px; }
+        }
+        @media (min-width: 768px) {
+            .app-title { font-size: 2.5rem; }
+            .btn-enter { font-size: 1.5rem; padding: 12px 40px; }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="app-title">地理乐-GeoFun</h1>
+    <button class="btn-enter" onclick="window.location.href='chapter_map.html?bid=b1'">
+        进入教材思维导图
+    </button>
+</body>
+</html>
