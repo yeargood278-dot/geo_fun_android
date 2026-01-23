@@ -2,180 +2,202 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>问题研究</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/animate.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>问题研究 - 地理乐课堂</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
-        body { background: #f0f2f5; font-family: 'Segoe UI', sans-serif; padding-bottom: 80px; }
+        body { background: #f0f2f5; font-family: 'Segoe UI', sans-serif; padding-bottom: 60px; }
         
-        /* 动态头部区域 */
+        /* 头部样式，背景色将由JS动态控制 */
         .header-section { 
             color: white; 
             padding: 20px; 
             border-radius: 0 0 25px 25px; 
             margin-bottom: 30px; 
-            transition: background 0.3s;
+            transition: background 0.5s ease;
         }
         
-        /* 横向滚动导航 */
-        .nav-scroller { 
-            overflow-x: auto; 
-            white-space: nowrap; 
-            margin-bottom: 15px; 
-            -webkit-overflow-scrolling: touch; 
-            padding-bottom: 5px; /* 防止滚动条遮挡 */
-        }
-        .nav-scroller::-webkit-scrollbar { display: none; } /* 隐藏滚动条 */
-        
+        /* 顶部书籍导航 */
+        .nav-scroller { overflow-x: auto; white-space: nowrap; margin-bottom: 15px; -webkit-overflow-scrolling: touch; }
         .nav-scroller a { 
             color: rgba(255,255,255,0.8); 
             text-decoration: none; 
             margin-right: 10px; 
             border: 1px solid rgba(255,255,255,0.3); 
-            padding: 6px 14px; 
-            border-radius: 20px; 
+            padding: 4px 10px; 
+            border-radius: 15px; 
             display: inline-block; 
-            font-size: 0.9rem; 
-            transition: all 0.2s;
+            font-size: 0.85rem; 
+            transition: all 0.3s;
         }
         .nav-scroller a.active { 
             background: white; 
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-weight: bold; 
+            /* 文字颜色由JS动态设置 */
         }
         
-        /* 项目卡片 */
+        /* 卡片与折叠面板样式 */
         .project-card { border: none; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; }
-        .accordion-button { background-color: white; color: #2c3e50; font-weight: bold; font-size: 1rem; padding: 18px; }
-        .accordion-button:not(.collapsed) { background-color: #f8f9fa; box-shadow: none; }
+        .accordion-button { background-color: white; color: #2c3e50; font-weight: bold; font-size: 1rem; padding: 15px; border-radius: 15px !important; }
+        .accordion-button:not(.collapsed) { background-color: #f8f9fa; box-shadow: none; /* 文字颜色由JS动态设置 */ }
         .accordion-button:focus { box-shadow: none; }
         
-        .content-box { background: #fff; padding: 20px; border-top: 3px solid transparent; }
-        .label-tag { display: inline-block; padding: 4px 12px; border-radius: 15px; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px; background: #e9ecef; color: #495057; }
-        
-        /* 底部按钮栏 */
-        .footer-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 15px; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 1000; text-align: center; }
+        /* 内容区域样式 */
+        .content-box { background: #fff; padding: 20px; border-top: 2px solid #ddd; /* 边框色由JS动态设置 */ }
+        .label-tag { display: inline-block; padding: 3px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; margin-bottom: 8px; background: #e9ecef; color: #495057; }
     </style>
 </head>
 <body>
-
-    <div class="header-section animate__animated animate__fadeInDown" id="header-bg">
-        <div class="nav-scroller" id="top-nav">
-            <a href="project_research.html?bid=b1" data-id="b1">必1</a>
-            <a href="project_research.html?bid=b2" data-id="b2">必2</a>
-            <a href="project_research.html?bid=xb1" data-id="xb1">选1</a>
-            <a href="project_research.html?bid=xb2" data-id="xb2">选2</a>
-            <a href="project_research.html?bid=xb3" data-id="xb3">选3</a>
+    <div id="header-section" class="header-section animate__animated animate__fadeInDown">
+        <div class="nav-scroller" id="book-nav">
+            <a href="project_research.html?bid=b1" data-bid="b1">必1</a>
+            <a href="project_research.html?bid=b2" data-bid="b2">必2</a>
+            <a href="project_research.html?bid=xb1" data-bid="xb1">选1</a>
+            <a href="project_research.html?bid=xb2" data-bid="xb2">选2</a>
+            <a href="project_research.html?bid=xb3" data-bid="xb3">选3</a>
         </div>
-        
-        <h2 class="fw-bold mb-1" id="page-title">问题研究</h2>
+        <h2 class="fw-bold mb-1" id="page-title">加载中...</h2>
         <p class="opacity-75 small mb-0">深度探究 · 拓展思维</p>
     </div>
     
     <div class="container" style="max-width: 900px;">
         <div class="accordion" id="projectAccordion">
-            <div class="text-center py-5 text-muted" id="loading-tip">加载中...</div>
+            <div class="text-center py-5 text-muted">
+                <div class="spinner-border text-secondary" role="status"></div>
+                <div class="mt-2">正在加载研究课题...</div>
+            </div>
         </div>
-        <div style="height: 20px;"></div>
+        
+        <div class="text-center mt-4">
+            <a href="index.html" class="btn btn-secondary rounded-pill px-4 mx-2 btn-sm">🏠 首页</a>
+            <a id="map-btn" href="#" class="btn btn-primary rounded-pill px-4 mx-2 btn-sm shadow" style="border:none;">🗺️ 地图</a>
+        </div>
     </div>
 
-    <div class="footer-bar">
-        <a href="index.html" class="btn btn-secondary rounded-pill px-4 mx-2">🏠 首页</a>
-        <button id="map-btn" class="btn btn-primary rounded-pill px-4 mx-2 shadow text-white">🗺️ 地图</button>
-    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="data_zoo.js"></script>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/data.js"></script>
     <script>
-        // 1. 获取 URL 参数
-        const urlParams = new URLSearchParams(window.location.search);
-        const bid = urlParams.get('bid') || 'b1';
-        
-        // 2. 获取当前书籍信息 (来自 data.js 的 books 对象)
-        const currentBook = books[bid];
-        const themeColor = currentBook ? currentBook.color : '#3498db';
-        const titlePrefix = currentBook ? currentBook.title : '未知书籍';
-
-        // 3. 渲染 UI 样式
-        // 设置头部背景渐变
-        document.getElementById('header-bg').style.background = `linear-gradient(135deg, ${themeColor} 0%, #2c3e50 100%)`;
-        
-        // 设置标题
-        document.getElementById('page-title').innerHTML = `${currentBook.icon} ${titlePrefix} · 问题研究`;
-        
-        // 设置顶部导航高亮
-        const navLinks = document.querySelectorAll('#top-nav a');
-        navLinks.forEach(link => {
-            if (link.getAttribute('data-id') === bid) {
-                link.classList.add('active');
-                link.style.color = themeColor;
-                // 自动滚动导航栏到当前项
-                link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. 获取 URL 参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const bid = urlParams.get('bid') || 'b1'; // 默认为 b1
+            
+            // 2. 从 data_zoo.js 获取配置信息
+            // 确保 data_zoo.js 已正确加载
+            if (typeof books === 'undefined' || typeof research_projects === 'undefined') {
+                document.getElementById('projectAccordion').innerHTML = '<div class="alert alert-danger">数据加载失败，请检查 data_zoo.js 文件路径。</div>';
+                return;
             }
-        });
 
-        // 设置底部“地图”按钮样式和链接
-        const mapBtn = document.getElementById('map-btn');
-        mapBtn.style.backgroundColor = themeColor;
-        mapBtn.style.borderColor = themeColor;
-        mapBtn.onclick = function() {
-            window.location.href = `chapter_map.html?bid=${bid}`;
-        };
+            const bookConfig = books[bid];
+            const currentProjects = research_projects[bid] || [];
+            
+            // 定义特定显示的标题前缀 (模拟原PHP逻辑)
+            const titleMap = {
+                'b1': '🌍 必修一',
+                'b2': '🔥 必修二',
+                'xb1': '🐶 选必一',
+                'xb2': '🐰 选必二',
+                'xb3': '🐼 选必三'
+            };
+            const titlePrefix = titleMap[bid] || bookConfig.title;
+            const themeColor = bookConfig.color || '#3498db';
 
-        // 4. 渲染研究项目列表
-        const container = document.getElementById('projectAccordion');
-        const projects = research_projects[bid] || [];
+            // 3. 渲染页面视觉元素
+            
+            // 设置标题和背景
+            document.title = `问题研究 - ${titlePrefix}`;
+            document.getElementById('page-title').innerText = `${titlePrefix} 问题研究`;
+            const headerSection = document.getElementById('header-section');
+            headerSection.style.background = `linear-gradient(135deg, ${themeColor} 0%, #2c3e50 100%)`;
 
-        if (projects.length === 0) {
-            container.innerHTML = `
-                <div class="alert alert-info text-center shadow-sm border-0" style="background: rgba(255,255,255,0.9); color: ${themeColor}">
-                    🚧 本册内容正在建设中...
-                </div>`;
-        } else {
-            let html = '';
-            projects.forEach((proj, index) => {
-                const delay = index * 0.1; // 动画延迟
-                html += `
-                <div class="accordion-item project-card animate__animated animate__fadeInUp" style="animation-delay: ${delay}s;">
-                    <h2 class="accordion-header" id="heading${index}">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}" style="color: ${themeColor}">
-                            <span class="me-3 fs-3">${proj.icon}</span>
-                            <span class="text-dark">${proj.title}</span>
-                        </button>
-                    </h2>
-                    <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#projectAccordion">
-                        <div class="accordion-body content-box" style="border-top-color: ${themeColor}">
-                            <div class="mb-3">
-                                <span class="label-tag">💡 主要观点与思路</span>
-                                <div class="text-secondary small mt-2 lh-base">${proj.points}</div>
-                            </div>
-                            <div>
-                                <span class="label-tag">📈 研究趋势与价值</span>
-                                <div class="text-secondary small mt-2 lh-base">${proj.value}</div>
+            // 设置底部地图按钮
+            const mapBtn = document.getElementById('map-btn');
+            mapBtn.href = `chapter_map.html?bid=${bid}`; // 注意改为 .html
+            mapBtn.style.background = themeColor;
+
+            // 设置导航高亮
+            const navLinks = document.querySelectorAll('#book-nav a');
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-bid') === bid) {
+                    link.classList.add('active');
+                    link.style.color = themeColor;
+                } else {
+                    link.classList.remove('active');
+                    link.style.color = 'rgba(255,255,255,0.8)';
+                }
+            });
+
+            // 4. 渲染研究课题列表 (Accordion)
+            const container = document.getElementById('projectAccordion');
+            
+            if (currentProjects.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-5 text-muted bg-white rounded-3 shadow-sm">
+                        <div class="fs-1">📭</div>
+                        <p class="mt-2">本册暂无研究课题数据</p>
+                    </div>`;
+            } else {
+                let htmlContent = '';
+                currentProjects.forEach((proj, index) => {
+                    // 动画延迟
+                    const delay = index * 0.05;
+                    
+                    htmlContent += `
+                    <div class="accordion-item project-card animate__animated animate__fadeInUp" style="animation-delay: ${delay}s;">
+                        <h2 class="accordion-header" id="heading${index}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}" style="--theme-color: ${themeColor}">
+                                <span class="me-3 fs-3">${proj.icon}</span>
+                                ${proj.title}
+                            </button>
+                        </h2>
+                        <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#projectAccordion">
+                            <div class="accordion-body content-box" style="border-top-color: ${themeColor}">
+                                <div class="mb-3">
+                                    <span class="label-tag">💡 核心观点</span>
+                                    <div class="text-secondary small mt-1">${proj.points}</div>
+                                </div>
+                                <div>
+                                    <span class="label-tag">📈 价值</span>
+                                    <div class="text-secondary small mt-1">${proj.value}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>`;
-            });
-            container.innerHTML = html;
-        }
-
-        // 5. 处理自动展开逻辑 (来自 URL 的 open 参数)
-        const openIdx = urlParams.get('open');
-        if (openIdx !== null) {
-            // 使用 Bootstrap 的 API 展开
-            const targetId = `#collapse${openIdx}`;
-            const element = document.querySelector(targetId);
-            if (element) {
-                // 等待 DOM 渲染完毕
-                setTimeout(() => {
-                    const bsCollapse = new bootstrap.Collapse(element, { show: true });
-                    // 滚动到该元素
-                    element.previousElementSibling.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
+                    `;
+                });
+                container.innerHTML = htmlContent;
             }
-        }
+
+            // 5. 动态注入 CSS 以控制展开时的颜色 (解决 inline style 在伪类上无效的问题)
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .accordion-button:not(.collapsed) {
+                    color: ${themeColor} !important;
+                }
+            `;
+            document.head.appendChild(style);
+
+            // 6. 处理自动打开 (URL param: open=index)
+            const openIdx = urlParams.get('open');
+            if (openIdx !== null) {
+                // 稍微延迟以确保DOM渲染完成
+                setTimeout(() => {
+                    const targetCollapse = document.getElementById('collapse' + openIdx);
+                    const targetBtn = document.querySelector(`button[data-bs-target="#collapse${openIdx}"]`);
+                    
+                    if (targetCollapse && targetBtn) {
+                        // 使用 Bootstrap API 展开
+                        new bootstrap.Collapse(targetCollapse, { show: true });
+                        // 滚动到视图
+                        setTimeout(() => targetBtn.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+                    }
+                }, 100);
+            }
+        });
     </script>
 </body>
 </html>

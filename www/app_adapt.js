@@ -4,7 +4,7 @@ document.addEventListener('plusready', function() {
     plus.key.addEventListener('backbutton', function() {
         const currentUrl = window.location.href;
         // 首页：双击返回键退出；子页面：返回上一页
-        if (currentUrl.includes('index.html')) {
+        if (currentUrl.includes('www/index.html')) {
             if (plus.runtime.quitTime) {
                 plus.runtime.quit(); // 第二次点击退出
             } else {

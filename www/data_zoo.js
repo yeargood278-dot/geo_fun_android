@@ -1082,7 +1082,7 @@ const courses = {
     }
 };
 // ==========================================
-// 7. 课程内容总库 (续 - data_zoo-2.php)
+// 7. 课程内容总库 (续 - data_zoo-2.html)
 // 使用 Object.assign 将新数据合并到已有的 courses 对象中
 // ==========================================
 
@@ -2025,7 +2025,7 @@ Object.assign(courses, {
     }
 });
 // ==========================================
-// 7. 课程内容总库 (data_zoo-3.php)
+// 7. 课程内容总库 (data_zoo-3.html)
 // ==========================================
 Object.assign(courses, {
     // --- XB1 1.1 地球的自转和公转 ---
@@ -2166,7 +2166,7 @@ Object.assign(courses, {
     }
 });
 // ==========================================
-// 7. 课程内容总库 (data_zoo-4.php)
+// 7. 课程内容总库 (data_zoo-4.html)
 // ==========================================
 Object.assign(courses, {
     // --- XB1 2.3 河流地貌的发育 ---
@@ -3056,7 +3056,7 @@ Object.assign(courses, {
     }
 });
 // ==========================================
-// 3. data_zoo-5.php 转换
+// 3. data_zoo-5.html 转换
 // ==========================================
 Object.assign(courses, {
     // --- XB3 3.1 环境安全对国家安全的影响 ---
@@ -3284,12 +3284,45 @@ Object.assign(courses, {
         }
     }
 });
+// ==========================================
+// 8. 数据整合与导出 (核心修复部分)
+// ==========================================
 
-// 7. 导出思维导图集合 (必须添加，否则地图页报错)
+// 1. 整合思维导图数据
+// 确保 chapter_map.html 能通过 mindmaps[bid] 访问到数据
 const mindmaps = {
-    b1: b1_mindmap,
-    b2: b2_mindmap,
-    xb1: xb1_mindmap,
-    xb2: xb2_mindmap,
-    xb3: xb3_mindmap
+    'b1': b1_mindmap,
+    'b2': b2_mindmap,
+    'xb1': xb1_mindmap,
+    'xb2': xb2_mindmap,
+    'xb3': xb3_mindmap
 };
+
+// 2. 整合问题研究数据
+// 确保 project_research.html 能通过 research_projects[bid] 访问到数据
+// 注意：这里将分散定义的变量（如 research_projects_b1）汇总到一个大对象中
+const research_projects = {
+    'b1': (typeof research_projects_b1 !== 'undefined') ? research_projects_b1 : [],
+    'b2': (typeof research_projects_b2 !== 'undefined') ? research_projects_b2 : [],
+    'xb1': (typeof research_projects_xb1 !== 'undefined') ? research_projects_xb1 : [],
+    'xb2': (typeof research_projects_xb2 !== 'undefined') ? research_projects_xb2 : [],
+    'xb3': (typeof research_projects_xb3 !== 'undefined') ? research_projects_xb3 : []
+};
+
+// ==========================================
+// 9. 辅助工具函数
+// ==========================================
+
+// 获取URL参数的通用函数
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+// 简单的完整性检查（在控制台输出）
+console.log('Data Loaded:', {
+    books: typeof books !== 'undefined',
+    mindmaps: typeof mindmaps !== 'undefined',
+    projects: typeof research_projects !== 'undefined',
+    courses: typeof courses !== 'undefined'
+});
